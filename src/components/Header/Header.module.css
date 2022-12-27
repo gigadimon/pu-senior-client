@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  background-color: #313fa4;
+}
+
+.navContainer {
+  margin-left: auto;
+}
+
+.link {
+  color: #bec2e0;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 150ms linear;
+}
+
+.link:last-child {
+  margin-left: 20px;
+}
+
+.link:hover {
+  color: #e5e6f3;
+}

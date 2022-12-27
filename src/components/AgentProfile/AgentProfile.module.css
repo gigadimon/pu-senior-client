@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(50, 153, 249);
+  font-size: 16px;
+  padding: 10px;
+  border-bottom: 1px dashed rgb(0, 87, 169);
+  transition: background-color 100ms linear;
+}
+
+.link:hover {
+  background-color: rgb(242, 247, 251);
+}
+
+.link:active {
+  background-color: rgb(221, 236, 250);
+}

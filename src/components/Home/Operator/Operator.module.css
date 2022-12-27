@@ -1,0 +1,36 @@
+.operatorElement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5px;
+  transition: background-color 100ms linear;
+}
+.operatorElement:hover {
+  background-color: antiquewhite;
+  cursor: pointer;
+}
+.operatorElement:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.operatorName {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.status {
+  margin-right: 8px;
+}
+
+.statusColor {
+  display: inline-block;
+  margin-right: 4px;
+  width: 8px;
+  height: 8px;
+  border-radius: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}

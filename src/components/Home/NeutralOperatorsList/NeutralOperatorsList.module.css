@@ -1,0 +1,13 @@
+.section {
+  width: 45vw;
+  margin-left: 20px;
+  padding: 15px 10px;
+  background-color: rgb(244, 244, 244);
+  border-radius: 8px;
+}
+
+.title {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}

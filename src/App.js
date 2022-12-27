@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+
+const Home = lazy(() => import("./components/Home/Home"));
+const Header = lazy(() => import("./components/Header/Header"));
+const AgentProfile = lazy(() =>
+  import("./components/AgentProfile/AgentProfile")
+);
+const General = lazy(() => import("./components/AgentProfile/General/General"));
+const Localize = lazy(() =>
+  import("./components/AgentProfile/Localize/Localize")
+);
+const Activity = lazy(() =>
+  import("./components/AgentProfile/Activity/Activity")
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Header />}>
+            <Route index element={<Home />} />
+            <Route path="/agent/:agentId" element={<AgentProfile />}>
+              <Route path="general" element={<General />} />
+              <Route path="localize" element={<Localize />} />
+              <Route path="activity" element={<Activity />} />
+            </Route>
+          </Route>
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
