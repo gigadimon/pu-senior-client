@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 import {
   persistStore,
   persistReducer,
@@ -7,28 +7,30 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
-  REGISTER,
-} from "redux-persist";
-import { agentReducer } from "./agentSlice";
-import storage from "redux-persist/lib/storage";
+  REGISTER
+} from 'redux-persist';
+import { agentReducer } from './agentSlice';
+import { userReducer } from './userSlice';
+import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
-  key: "user",
-  storage,
+  key: 'user',
+  storage
 };
 
-const persistedReducer = persistReducer(persistConfig, agentReducer);
+const persistedAgentReducer = persistReducer(persistConfig, agentReducer);
 
 export const store = configureStore({
   reducer: {
-    agent: persistedReducer,
+    agent: persistedAgentReducer,
+    user: userReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 });
 
 export const persistor = persistStore(store);

@@ -1,0 +1,25 @@
+.nav {
+    display: flex;
+    height: 60px;
+    border-bottom: 1px solid rgb(176, 175, 175);
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 15px;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    transition: color 100ms linear;
+}
+
+.link:last-child{
+    margin-left: 10px;
+}
+
+.link:active,
+.link:focus,
+.link:hover {
+  color: #1976d2;
+}

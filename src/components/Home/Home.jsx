@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
-import { getWebimState } from "../../asyncService/getWebimState";
-import { DepartmentSection } from "./DepartmentSection/DepartmentSection";
-import { OffendersSection } from "./OffendersSection/OffendersSection";
-import { QueueByDepartSection } from "./QueueByDepartSection/QueueByDepartSection";
-import { NeutralOperatorsList } from "./NeutralOperatorsList/NeutralOperatorsList";
-import { Blocks } from "react-loader-spinner";
+import { useEffect, useState } from 'react';
+import { getWebimState } from '../../asyncService/getWebimState';
+import { DepartmentSection } from './DepartmentSection/DepartmentSection';
+import { OffendersSection } from './OffendersSection/OffendersSection';
+import { QueueByDepartSection } from './QueueByDepartSection/QueueByDepartSection';
+import { NeutralOperatorsList } from './NeutralOperatorsList/NeutralOperatorsList';
+import { Blocks } from 'react-loader-spinner';
+import { setCookie } from 'react-use-cookie';
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import s from "./Home.module.css";
+import s from './Home.module.css';
 
 export default function Home() {
   const [webimState, setWebimState] = useState([]);
@@ -16,11 +17,9 @@ export default function Home() {
   useEffect(() => {
     async function setWebimInterval() {
       const { info, checkedStatuses, departInfo } = await getWebimState();
-      setWebimState(info?.filter((el) => el.department !== "No department"));
+      setWebimState(info?.filter((el) => el.department !== 'No department'));
       setCheckedStatuses(checkedStatuses);
-      setDepartmentInfo(
-        departInfo?.filter((el) => el.department.name !== "No department")
-      );
+      setDepartmentInfo(departInfo?.filter((el) => el.department.name !== 'No department'));
     }
     setWebimInterval();
     const intervalId = setInterval(setWebimInterval, 5000);
@@ -42,17 +41,11 @@ export default function Home() {
     <section className={s.homeSection}>
       <div className={s.wrapper}>
         <QueueByDepartSection departmentInfo={departmentInfo} />
-        <OffendersSection
-          webimState={webimState}
-          checkedStatuses={checkedStatuses}
-        />
+        <OffendersSection webimState={webimState} checkedStatuses={checkedStatuses} />
       </div>
       <div className={s.triggerWrapper}>
         <DepartmentSection webimState={webimState} />
-        <NeutralOperatorsList
-          checkedStatuses={checkedStatuses}
-          webimState={webimState}
-        />
+        <NeutralOperatorsList checkedStatuses={checkedStatuses} webimState={webimState} />
       </div>
     </section>
   ) : (

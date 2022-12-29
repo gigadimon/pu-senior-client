@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getAgentInfo } from "../../../redux/agentSlice";
@@ -10,10 +10,11 @@ export default function General() {
   const dispatch = useDispatch();
   const agent = useSelector(selectAgent);
   const { agentId } = useParams();
-  const [change, setChange] = useState(false);
+  // const [change, setChange] = useState(false);
+  const change = false;
 
   useEffect(() => {
-    agent.id.toString() !== agentId.toString() &&
+    `${agent.id}` !== `${agentId}` &&
       dispatch(getAgentInfo(agentId));
   }, [dispatch, agentId, agent.id]);
 
@@ -24,7 +25,7 @@ export default function General() {
   function submitHandler(e) {
     e.preventDefault();
   }
-  return agent.id.toString() === agentId.toString() ? (
+  return `${agent.id}` === `${agentId}` ? (
     <div className={s.mainContainer}>
       <h1>Профиль сотрудника {agent?.name}</h1>
       <form onSubmit={submitHandler}>
