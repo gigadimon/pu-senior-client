@@ -11,6 +11,7 @@ import {
 } from 'redux-persist';
 import { agentReducer } from './agentSlice';
 import { userReducer } from './userSlice';
+import { webimReducer } from './webimSlice';
 import storage from 'redux-persist/lib/storage';
 
 const persistConfig = {
@@ -23,7 +24,8 @@ const persistedAgentReducer = persistReducer(persistConfig, agentReducer);
 export const store = configureStore({
   reducer: {
     agent: persistedAgentReducer,
-    user: userReducer
+    user: userReducer,
+    webimState: webimReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { DepartmentList } from "../DepartmentList";
-import s from "./DepartmentSection.module.css";
+import { useState } from 'react';
+import { DepartmentList } from '../DepartmentList';
+import s from './DepartmentSection.module.css';
 
-export function DepartmentSection({ webimState }) {
-  const [filter, setFilter] = useState("");
+export function DepartmentSection() {
+  const [filter, setFilter] = useState('');
   return (
     <section className={s.section}>
       <input
@@ -13,7 +13,7 @@ export function DepartmentSection({ webimState }) {
         onChange={(e) => setFilter(e.currentTarget.value)}
         className={s.input}
       />
-      <DepartmentList filter={filter} webimState={webimState} />
+      <DepartmentList filter={filter} />
     </section>
   );
 }

@@ -1,25 +1,23 @@
-import { useEffect, useState } from 'react';
-import { getWebimState } from '../../asyncService/getWebimState';
+import { useEffect } from 'react';
 import { DepartmentSection } from './DepartmentSection/DepartmentSection';
 import { OffendersSection } from './OffendersSection/OffendersSection';
 import { QueueByDepartSection } from './QueueByDepartSection/QueueByDepartSection';
 import { NeutralOperatorsList } from './NeutralOperatorsList/NeutralOperatorsList';
+import { getWebimStateAction } from '../../redux/webimSlice';
+import { selectWebimState, selectDepartInfo } from '../../redux/selectors.js';
 import { Blocks } from 'react-loader-spinner';
-import { setCookie } from 'react-use-cookie';
 // import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import s from './Home.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function Home() {
-  const [webimState, setWebimState] = useState([]);
-  const [checkedStatuses, setCheckedStatuses] = useState({});
-  const [departmentInfo, setDepartmentInfo] = useState([]);
+  const dispatch = useDispatch();
+  const webimState = useSelector(selectWebimState);
+  const departmentInfo = useSelector(selectDepartInfo);
 
   useEffect(() => {
     async function setWebimInterval() {
-      const { info, checkedStatuses, departInfo } = await getWebimState();
-      setWebimState(info?.filter((el) => el.department !== 'No department'));
-      setCheckedStatuses(checkedStatuses);
-      setDepartmentInfo(departInfo?.filter((el) => el.department.name !== 'No department'));
+      dispatch(getWebimStateAction());
     }
     setWebimInterval();
     const intervalId = setInterval(setWebimInterval, 5000);
@@ -27,7 +25,7 @@ export default function Home() {
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (webimState) console.log(webimState);
@@ -40,12 +38,12 @@ export default function Home() {
   return Boolean(webimState.length) ? (
     <section className={s.homeSection}>
       <div className={s.wrapper}>
-        <QueueByDepartSection departmentInfo={departmentInfo} />
-        <OffendersSection webimState={webimState} checkedStatuses={checkedStatuses} />
+        <QueueByDepartSection />
+        <OffendersSection />
       </div>
       <div className={s.triggerWrapper}>
-        <DepartmentSection webimState={webimState} />
-        <NeutralOperatorsList checkedStatuses={checkedStatuses} webimState={webimState} />
+        <DepartmentSection />
+        <NeutralOperatorsList />
       </div>
     </section>
   ) : (
